@@ -30,5 +30,18 @@ private Scanner scanner;
         System.out.println(reader.toString());
         return reader;
     }
+
+    public void printListReaders(Reader[] readers) {
+        System.out.println("------ List readers ------");
+        for (int i = 0; i < readers.length; i++) {
+            System.out.printf("%d. %s %s. %s%n",
+                    i+1,
+                    readers[i].getFirstname(),
+                    readers[i].getLastname(),
+                    readers[i].getPhone()
+            );
+            
+        }
+    }
     
 }

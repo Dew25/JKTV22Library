@@ -7,6 +7,8 @@ package managers;
 
 import entity.Author;
 import entity.Book;
+import entity.History;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -39,6 +41,41 @@ public class BookManager {
         System.out.println("Added book: ");
         System.out.println(book.toString());
         return book;
+    }
+
+    public void printListBooks(Book[] books) {
+        System.out.println("------- List books --------");
+        for (int i = 0; i < books.length; i++) {
+            StringBuilder sbAuthorsBook = new StringBuilder();
+            for (int j = 0; j < books[i].getAuthors().length; j++) {
+                Author author = books[i].getAuthors()[j];
+                sbAuthorsBook.append(author.getFirstname());
+                sbAuthorsBook.append(" ");
+                sbAuthorsBook.append(author.getLastname()+". ");
+            }
+            
+            System.out.printf("%d. %s. %d. %s%n",
+                    i+1,
+                    books[i].getTitle(),
+                    books[i].getPublishedYear(),
+                    sbAuthorsBook.toString());
+        }
+    }
+
+    public void printListGiveOutBooks(History[] histories) {
+       System.out.println("------- List books of hands --------"); 
+        for (int i = 0; i < histories.length; i++) {
+            if(histories[i].getDateBack() == null){
+                System.out.printf("%d. \"%s\" to read %s %s. %s%n",
+                        i+1,
+                        histories[i].getBook().getTitle(),
+                        histories[i].getReader().getFirstname(),
+                        histories[i].getReader().getLastname(),
+                        histories[i].getReader().getPhone()
+                );
+            }
+            
+        }
     }
     
     
