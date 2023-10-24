@@ -12,6 +12,8 @@ import entity.Reader;
 import java.util.Arrays;
 import java.util.Scanner;
 import managers.BookManager;
+import managers.SaveManager;
+import tools.KeyboardInput;
 
 /**
  *
@@ -21,13 +23,15 @@ class App {
     private Book[] books;
     private Reader[] readers;
     private History[] histories;
-    private Scanner scanner;
-    private ReaderManager readerManager;
-    private BookManager bookManager;
-    private HistoryManager historyManager;
+    private final Scanner scanner;
+    private final ReaderManager readerManager;
+    private final BookManager bookManager;
+    private final HistoryManager historyManager;
+    private final SaveManager saveManager;
 
     public App() {
-        this.books = new Book[0];
+        this.saveManager = new SaveManager();
+        this.books = saveManager.loadBooks();//считывание массива книг из файла
         this.readers = new Reader[0];
         this.histories = new History[0];
         this.scanner = new Scanner(System.in);
@@ -49,7 +53,7 @@ class App {
             System.out.println("6. Print list give out books");
             System.out.println("7. Return book");
             System.out.print("Set task: ");
-            int task = scanner.nextInt();scanner.nextLine();
+            int task = KeyboardInput.inputNumber(0, 7);
             switch (task) {
                 case 0:
                     repeat = false;
@@ -85,6 +89,8 @@ class App {
     private void addBookToArray(Book book) {
         this.books = Arrays.copyOf(books, books.length + 1);
         this.books[books.length - 1] = book;
+        //сохранить массив книг в файл
+        saveManager.saveBooks(books);
     }
 
     private void addReaderToArray(Reader reader) {
