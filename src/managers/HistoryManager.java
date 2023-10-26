@@ -10,6 +10,7 @@ import entity.History;
 import entity.Reader;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import tools.KeyboardInput;
 
 
 /**
@@ -36,23 +37,24 @@ public class HistoryManager{
          *  5. добавить в history дату выдачи книги (текущую дату)
          */
         readerManager.printListReaders(readers);
-        int selectedReaderNumber = scanner.nextInt(); scanner.nextLine();
+        int selectedReaderNumber = KeyboardInput.inputNumber(1, null);
         history.setReader(readers[selectedReaderNumber-1]);
         bookManager.printListBooks(books);
-        int selectedBookNumber = scanner.nextInt(); scanner.nextLine();
+        int selectedBookNumber = KeyboardInput.inputNumber(1, null);
         history.setBook(books[selectedBookNumber-1]);
         history.setDateOnHand(new GregorianCalendar().getTime());
         return history;
     }
 
-    public void returnBook(History[] histories) {
+    public History[] returnBook(History[] histories) {
         bookManager.printListGiveOutBooks(histories);
         System.out.print("Select book for return: ");
-        int historyNumber = scanner.nextInt(); scanner.nextLine();
+        int historyNumber = KeyboardInput.inputNumber(1, null);
         histories[historyNumber-1].setDateBack(new GregorianCalendar().getTime());
         System.out.printf("Book \"%s\" returned%n", 
                 histories[historyNumber-1].getBook().getTitle()
         );
+        return histories;
     }
     
 }

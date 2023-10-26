@@ -32,8 +32,8 @@ class App {
     public App() {
         this.saveManager = new SaveManager();
         this.books = saveManager.loadBooks();//считывание массива книг из файла
-        this.readers = new Reader[0];
-        this.histories = new History[0];
+        this.readers = saveManager.loadReaders();
+        this.histories = saveManager.loadHistories();
         this.scanner = new Scanner(System.in);
         this.readerManager = new ReaderManager(scanner);
         this.bookManager = new BookManager(scanner);
@@ -65,7 +65,10 @@ class App {
                     addReaderToArray(readerManager.addReader());
                     break;
                 case 3:
-                    addHistoryToArray(historyManager.giveOutBook(books, readers));
+                    History history = historyManager.giveOutBook(books, readers);
+                    if(histories != null){
+                        addHistoryToArray(history);
+                    }
                     break;
                 case 4:
                     readerManager.printListReaders(readers);
@@ -77,12 +80,12 @@ class App {
                     bookManager.printListGiveOutBooks(histories);
                     break;
                 case 7:
-                    historyManager.returnBook(histories);
+                    saveManager.saveHistories(historyManager.returnBook(histories));
                     break;
                 default:
                     System.out.println("Select number from list!");
             }
-            System.out.println("-----------------------------------------------------");
+            System.out.println("\n-----------------------------------------------------");
         }while(repeat);
     }
 
@@ -90,17 +93,19 @@ class App {
         this.books = Arrays.copyOf(books, books.length + 1);
         this.books[books.length - 1] = book;
         //сохранить массив книг в файл
-        saveManager.saveBooks(books);
+        saveManager.saveBooks(this.books);
     }
 
     private void addReaderToArray(Reader reader) {
         this.readers = Arrays.copyOf(readers, readers.length + 1);
         this.readers[readers.length - 1] = reader;
+        saveManager.saveReaders(this.readers);
     }
 
     private void addHistoryToArray(History history) {
         this.histories = Arrays.copyOf(histories, histories.length + 1);
         this.histories[histories.length - 1] = history;
+        saveManager.saveHistories(this.histories);
     }
     
 }
