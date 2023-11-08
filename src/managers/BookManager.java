@@ -9,6 +9,7 @@ import entity.Author;
 import entity.Book;
 import entity.History;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import tools.KeyboardInput;
 
@@ -39,27 +40,33 @@ public class BookManager {
             String authorLastname = scanner.nextLine();
             book.addAuthor(new Author(authorFirstname, authorLastname));
         }
+        System.out.print("Enter quantity copy: ");
+        book.setQuantity(KeyboardInput.inputNumber(1, 10));
+        book.setCount(book.getQuantity());
         System.out.println("Added book: ");
         System.out.println(book.toString());
         return book;
     }
 
-    public void printListBooks(Book[] books) {
+    public void printListBooks(List<Book> books) {
         System.out.println("------- List books --------");
-        for (int i = 0; i < books.length; i++) {
+        for (int i = 0; i < books.size(); i++) {
             StringBuilder sbAuthorsBook = new StringBuilder();
-            for (int j = 0; j < books[i].getAuthors().length; j++) {
-                Author author = books[i].getAuthors()[j];
+            for (int j = 0; j < books.get(i).getAuthors().length; j++) {
+                Author author = books.get(i).getAuthors()[j];
                 sbAuthorsBook.append(author.getFirstname());
                 sbAuthorsBook.append(" ");
                 sbAuthorsBook.append(author.getLastname()+". ");
             }
             
-            System.out.printf("%d. %s. %d. %s%n",
+            System.out.printf("%d. %s. %d. %s. Count: %d%n",
                     i+1,
-                    books[i].getTitle(),
-                    books[i].getPublishedYear(),
-                    sbAuthorsBook.toString());
+                    books.get(i).getTitle(),
+                    books.get(i).getPublishedYear(),
+                    sbAuthorsBook.toString(),
+                    books.get(i).getCount()
+            );
+            
         }
     }
 

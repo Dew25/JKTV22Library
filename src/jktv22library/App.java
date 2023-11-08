@@ -10,6 +10,7 @@ import entity.Book;
 import entity.History;
 import entity.Reader;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import managers.BookManager;
 import managers.SaveManager;
@@ -20,7 +21,8 @@ import tools.KeyboardInput;
  * @author Melnikov
  */
 class App {
-    private Book[] books;
+    //private Book[] books;
+    private List<Book> books;
     private Reader[] readers;
     private History[] histories;
     private final Scanner scanner;
@@ -59,14 +61,14 @@ class App {
                     repeat = false;
                     break;
                 case 1:
-                    addBookToArray(bookManager.addBook());
+                    books.add(bookManager.addBook());
                     break;
                 case 2:
                     addReaderToArray(readerManager.addReader());
                     break;
                 case 3:
                     History history = historyManager.giveOutBook(books, readers);
-                    if(histories != null){
+                    if(history != null){
                         addHistoryToArray(history);
                     }
                     break;
@@ -80,7 +82,11 @@ class App {
                     bookManager.printListGiveOutBooks(histories);
                     break;
                 case 7:
-                    saveManager.saveHistories(historyManager.returnBook(histories));
+                    History[] histories = historyManager.returnBook(this.histories);
+                    if(histories != null){
+                        this.histories = histories;
+                        saveManager.saveHistories(this.histories);
+                    }
                     break;
                 default:
                     System.out.println("Select number from list!");
@@ -89,12 +95,12 @@ class App {
         }while(repeat);
     }
 
-    private void addBookToArray(Book book) {
-        this.books = Arrays.copyOf(books, books.length + 1);
-        this.books[books.length - 1] = book;
-        //сохранить массив книг в файл
-        saveManager.saveBooks(this.books);
-    }
+//    private void addBookToArray(Book book) {
+//        this.books = Arrays.copyOf(books, books.length + 1);
+//        this.books[books.length - 1] = book;
+//        //сохранить массив книг в файл
+//        saveManager.saveBooks(this.books);
+//    }
 
     private void addReaderToArray(Reader reader) {
         this.readers = Arrays.copyOf(readers, readers.length + 1);
