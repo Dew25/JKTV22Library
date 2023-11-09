@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package managers;
 
 import entity.Reader;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -31,14 +28,14 @@ private Scanner scanner;
         return reader;
     }
 
-    public void printListReaders(Reader[] readers) {
+    public void printListReaders(List<Reader> readers) {
         System.out.println("------ List readers ------");
-        for (int i = 0; i < readers.length; i++) {
+        for (int i = 0; i < readers.size(); i++) {
             System.out.printf("%d. %s %s. %s%n",
                     i+1,
-                    readers[i].getFirstname(),
-                    readers[i].getLastname(),
-                    readers[i].getPhone()
+                    readers.get(i).getFirstname(),
+                    readers.get(i).getLastname(),
+                    readers.get(i).getPhone()
             );
             
         }

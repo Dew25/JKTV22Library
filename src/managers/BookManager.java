@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package managers;
 
 import entity.Author;
 import entity.Book;
 import entity.History;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import tools.KeyboardInput;
@@ -59,7 +54,7 @@ public class BookManager {
                 sbAuthorsBook.append(author.getLastname()+". ");
             }
             
-            System.out.printf("%d. %s. %d. %s. Count: %d%n",
+            System.out.printf("%d. %s. %d. %s Count: %d%n",
                     i+1,
                     books.get(i).getTitle(),
                     books.get(i).getPublishedYear(),
@@ -70,16 +65,16 @@ public class BookManager {
         }
     }
 
-    public void printListGiveOutBooks(History[] histories) {
+    public void printListGiveOutBooks(List<History> histories) {
        System.out.println("------- List books of hands --------"); 
-        for (int i = 0; i < histories.length; i++) {
-            if(histories[i].getDateBack() == null){
+        for (int i = 0; i < histories.size(); i++) {
+            if(histories.get(i).getDateBack() == null){
                 System.out.printf("%d. \"%s\" to read %s %s. %s%n",
                         i+1,
-                        histories[i].getBook().getTitle(),
-                        histories[i].getReader().getFirstname(),
-                        histories[i].getReader().getLastname(),
-                        histories[i].getReader().getPhone()
+                        histories.get(i).getBook().getTitle(),
+                        histories.get(i).getReader().getFirstname(),
+                        histories.get(i).getReader().getLastname(),
+                        histories.get(i).getReader().getPhone()
                 );
             }
             
