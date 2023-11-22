@@ -90,7 +90,7 @@ class App {
                     }
                     break;
                case 8:
-                    historyManager.RatingOfBooksByReadability(this.histories);
+                    historyManager.ratingOfBooksByReadability(this.histories);
                     break;
                case 9:
                     historyManager.printMostReadingReader(this.histories);

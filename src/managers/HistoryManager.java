@@ -96,7 +96,7 @@ public class HistoryManager{
      * 4. Вывести ключ и значение сортированного sortedMapBooks
      *  
      */
-    public void RatingOfBooksByReadability(List<History> histories) {
+    public void ratingOfBooksByReadability(List<History> histories) {
         Map<Book,Integer> mapBooks = new HashMap<>();
         for (int i = 0; i < histories.size(); i++) {
             if(!mapBooks.containsKey(histories.get(i).getBook())){
@@ -127,6 +127,10 @@ public class HistoryManager{
         
     }
 
+        /**
+         * Напечатать рейтинг читателей по количеству прочитанных книг
+ Логика метода похожа на метод ratingOfBooksByReadability(List<History> histories)
+         */
     public void printMostReadingReader(List<History> histories) {
         System.out.println("Implementation expected");
     }
