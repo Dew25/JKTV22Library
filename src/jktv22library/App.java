@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import managers.BookManager;
+import managers.DatabaseManager;
 import managers.SaveManager;
 import tools.KeyboardInput;
 
@@ -18,7 +19,7 @@ import tools.KeyboardInput;
  * @author Melnikov
  */
 class App {
-    private List<Book> books;
+   
     private List<Reader> readers;
     private List<History> histories;
     private final Scanner scanner;
@@ -26,10 +27,12 @@ class App {
     private final BookManager bookManager;
     private final HistoryManager historyManager;
     private final SaveManager saveManager;
+    private final DatabaseManager databaseManager;
 
     public App() {
         this.saveManager = new SaveManager();
-        this.books = saveManager.loadBooks();//считывание массива книг из файла
+        this.databaseManager = new DatabaseManager();
+        
         this.readers = saveManager.loadReaders();
         this.histories = saveManager.loadHistories();
         this.scanner = new Scanner(System.in);
@@ -59,42 +62,41 @@ class App {
                     repeat = false;
                     break;
                 case 1:
-                    books.add(bookManager.addBook());
-                    saveManager.saveBooks(books);
+                    databaseManager.saveBook(bookManager.addBook());
                     break;
-                case 2:
-                    this.readers.add(readerManager.addReader());
-                    saveManager.saveReaders(readers);
-                    break;
-                case 3:
-                    History history = historyManager.giveOutBook(books, readers);
-                    if(history != null){
-                        this.histories.add(history);
-                        saveManager.saveHistories(this.histories);
-                    }
-                    break;
-                case 4:
-                    readerManager.printListReaders(readers);
-                    break;
-                case 5:
-                    bookManager.printListBooks(books);
-                    break;
-                case 6:
-                    bookManager.printListGiveOutBooks(histories);
-                    break;
-                case 7:
-                    List<History> histories = historyManager.returnBook(this.histories);
-                    if(histories != null){
-                        this.histories = histories;
-                        saveManager.saveHistories(this.histories);
-                    }
-                    break;
-               case 8:
-                    historyManager.ratingOfBooksByReadability(this.histories);
-                    break;
-               case 9:
-                    historyManager.printMostReadingReader(this.histories);
-                    break;
+//                case 2:
+//                    this.readers.add(readerManager.addReader());
+//                    saveManager.saveReaders(readers);
+//                    break;
+//                case 3:
+//                    History history = historyManager.giveOutBook(books, readers);
+//                    if(history != null){
+//                        this.histories.add(history);
+//                        saveManager.saveHistories(this.histories);
+//                    }
+//                    break;
+//                case 4:
+//                    readerManager.printListReaders(readers);
+//                    break;
+//                case 5:
+//                    bookManager.printListBooks(books);
+//                    break;
+//                case 6:
+//                    bookManager.printListGiveOutBooks(histories);
+//                    break;
+//                case 7:
+//                    List<History> histories = historyManager.returnBook(this.histories);
+//                    if(histories != null){
+//                        this.histories = histories;
+//                        saveManager.saveHistories(this.histories);
+//                    }
+//                    break;
+//               case 8:
+//                    historyManager.ratingOfBooksByReadability(this.histories);
+//                    break;
+//               case 9:
+//                    historyManager.printMostReadingReader(this.histories);
+//                    break;
                 default:
                     System.out.println("Select number from list!");
             }

@@ -33,7 +33,7 @@ public class BookManager {
             String authorFirstname = scanner.nextLine();
             System.out.print("Author lastname: ");
             String authorLastname = scanner.nextLine();
-            book.addAuthor(new Author(authorFirstname, authorLastname));
+            book.getAuthors().add(new Author(authorFirstname, authorLastname));
         }
         System.out.print("Enter quantity copy: ");
         book.setQuantity(KeyboardInput.inputNumber(1, 10));
@@ -47,8 +47,8 @@ public class BookManager {
         System.out.println("------- List books --------");
         for (int i = 0; i < books.size(); i++) {
             StringBuilder sbAuthorsBook = new StringBuilder();
-            for (int j = 0; j < books.get(i).getAuthors().length; j++) {
-                Author author = books.get(i).getAuthors()[j];
+            for (int j = 0; j < books.get(i).getAuthors().size(); j++) {
+                Author author = books.get(i).getAuthors().get(j);
                 sbAuthorsBook.append(author.getFirstname());
                 sbAuthorsBook.append(" ");
                 sbAuthorsBook.append(author.getLastname()+". ");
